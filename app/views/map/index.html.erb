@@ -4,6 +4,8 @@
 
 
 function call_after_create_map(){
-  createMarker(map.getCenter())
+  <% @points.each do |point| %>
+    createMarker(new google.maps.LatLng(<%= point.latitude %>, <%= point.longitude %>), "<%= point.name %>: <%= number_to_currency(point.price, precision: 0) %>")
+  <% end %>
 }
 </script>

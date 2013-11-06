@@ -21,11 +21,11 @@ function loadScript() {
   document.body.appendChild(script);
 }
 
-function createMarker(position) {
+function createMarker(position, title) {
   marker = new google.maps.Marker({
     position: position,
     map: map,
-    title: 'Click to zoom'
+    title: title
   });
 }
 
