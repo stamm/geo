@@ -1,8 +1,8 @@
 var map;
-
+var markers = [];
 function initialize() {
   var mapOptions = {
-    zoom: 11,
+    zoom: 14,
     center: new google.maps.LatLng(55.748758, 37.6174),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
@@ -11,7 +11,30 @@ function initialize() {
     var zoomLevel = map.getZoom();
     console.log(zoomLevel);
   });
-  call_after_create_map();
+
+  google.maps.event.addListener(map, 'idle', loadMarkders);
+
+
+}
+
+function loadMarkders() {
+  bounds = map.getBounds();
+  $.ajax({
+    url: "/api/v0/points",
+    data: {
+      latitude: [bounds['ea']['b'], bounds['ea']['d']],
+      longitude: [bounds['ia']['b'], bounds['ia']['d']],
+      price_from: $('#price_from').val(),
+      price_to: $('#price_to').val()
+    }
+  })
+    .done(function( data ) {
+      deleteMarkers();
+      console.log(data.length)
+      for (i=0, length = data.length; i < length; i++) {
+        createMarker(new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), data[i]['name'] + " " +data[i]['price']);
+      }
+    });
 }
 
 function loadScript() {
@@ -27,7 +50,28 @@ function createMarker(position, title) {
     map: map,
     title: title
   });
+  markers.push(marker)
+}
+
+function setAllMap(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setAllMap(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }
 
 window.onload = loadScript;
+
+
+$(function() {
+  $('#search_price').on('click', loadMarkders)
+});
 

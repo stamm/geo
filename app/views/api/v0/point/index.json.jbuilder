@@ -1,0 +1,1 @@
+json.array! @points, :id, :name, :price, :longitude, :latitude

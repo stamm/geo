@@ -1,11 +1,5 @@
+<div id="panel">
+  Цена от <input id="price_from" type="text"> до <input id="price_to" type="text"> <button id="search_price">Поиск</button>
+</div>
+
 <div id="map-canvas"/>
-
-<script type="application/javascript">
-
-
-function call_after_create_map(){
-  <% @points.each do |point| %>
-    createMarker(new google.maps.LatLng(<%= point.latitude %>, <%= point.longitude %>), "<%= point.name %>: <%= number_to_currency(point.price, precision: 0) %>")
-  <% end %>
-}
-</script>
