@@ -1,6 +1,6 @@
 class CreateIndexOnPoints < ActiveRecord::Migration
   def up
-    execute "create index index_on_points_location ON points using gist (
+    execute "CREATE INDEX CONCURRENTLY index_on_points_location ON points using gist (
         ST_GeomFromText(
           'POINT(' || points.longitude || ' ' || points.latitude || ')'
         )

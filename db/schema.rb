@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106180405) do
+ActiveRecord::Schema.define(version: 20131106211810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20131106180405) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "points", ["price"], name: "index_on_points_price", using: :btree
 
   create_table "spatial_ref_sys", id: false, force: true do |t|
     t.integer "srid",                   null: false
