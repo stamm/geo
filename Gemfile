@@ -10,6 +10,9 @@ gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails'
 gem 'jbuilder', '1.5.2'
 
+
+gem 'figaro', '0.7.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
