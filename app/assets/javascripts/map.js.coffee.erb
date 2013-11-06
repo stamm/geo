@@ -1,0 +1,22 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+window.initialize = ->
+  mapOptions =
+    zoom: 11
+    center: new google.maps.LatLng(55.748758, 37.6174)
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions)
+
+
+loadScript = ->
+  script = document.createElement("script")
+  script.type = "text/javascript"
+#  script.src = "http://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&sensor=false&callback=initialize"
+  script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize"
+  document.body.appendChild(script)
+
+
+window.onload = loadScript;
