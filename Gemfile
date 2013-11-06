@@ -15,6 +15,13 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'better_errors', '1.0.1'
+  gem 'binding_of_caller', '0.7.2'
+  gem 'spring', '0.9.0'
+  gem 'quiet_assets', '1.0.2'
+end
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
