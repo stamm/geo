@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var infowindow;
 var cluster;
+
 function initialize() {
   var mapOptions = {
     zoom: 14,
@@ -12,6 +13,12 @@ function initialize() {
 
   var mcOptions = {gridSize: 50, maxZoom: 15, zoomOnClick: false};
   cluster = new MarkerClusterer(map, null, mcOptions);
+
+
+  infowindow = new google.maps.InfoWindow({
+    content: "Loading...",
+    disableAutoPan : true
+  })
 
 
   google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -25,12 +32,10 @@ function initialize() {
 }
 
 function loadMarkders() {
-  bounds = map.getBounds();
   $.ajax({
     url: "/api/v0/points",
     data: {
-      latitude: [bounds['ea']['b'], bounds['ea']['d']],
-      longitude: [bounds['ia']['b'], bounds['ia']['d']],
+      bounds: map.getBounds().toUrlValue(),
       price_from: $('#price_from').val(),
       price_to: $('#price_to').val()
     }
