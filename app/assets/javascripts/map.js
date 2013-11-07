@@ -64,7 +64,7 @@ function loadMarkders() {
   if (polygon != undefined) {
     var positions = polygon.getPath().getArray();
     for (var i = 0, length = positions.length; i < length; i++) {
-      polygon_arr = positions[i].toUrlValue
+      polygon_arr.push(positions[i].toUrlValue())
     }
   }
   $.ajax({
