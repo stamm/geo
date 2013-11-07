@@ -1,6 +1,6 @@
 class IndexOnPrice < ActiveRecord::Migration
   def up
-    execute 'CREATE INDEX CONCURRENTLY index_on_points_price ON points USING btree (price)'
+    execute 'CREATE INDEX index_on_points_price ON points USING btree (price)'
   end
 
   def down
