@@ -1,5 +1,7 @@
 var map;
 var markers = [];
+var infowindow;
+var cluster;
 function initialize() {
   var mapOptions = {
     zoom: 14,
@@ -7,9 +9,14 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+  var mcOptions = {gridSize: 50, maxZoom: 15, zoomOnClick: false};
+  cluster = new MarkerClusterer(map, null, mcOptions);
+
+
   google.maps.event.addListener(map, 'zoom_changed', function() {
     var zoomLevel = map.getZoom();
-    console.log(zoomLevel);
+    console.log('zoom level: ' + zoomLevel);
   });
 
   google.maps.event.addListener(map, 'idle', loadMarkders);
@@ -29,11 +36,33 @@ function loadMarkders() {
     }
   })
     .done(function( data ) {
-      deleteMarkers();
+//      deleteMarkers();
       console.log(data.length)
-      for (i=0, length = data.length; i < length; i++) {
-        createMarker(new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']), data[i]['name'] + " " +data[i]['price']);
+      for (var i=0, length = data.length; i < length; i++) {
+        createMarker(
+          new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']),
+          data[i]['name'] + " " + data[i]['price']
+        );
       }
+
+      cluster.clearMarkers();
+      cluster.addMarkers(markers);
+
+      google.maps.event.addListener(cluster, "clusterclick", function (cluster) {
+        var info = new google.maps.MVCObject;
+        info.set('position', cluster.center_);
+
+        var titles = "";
+        var markers = cluster.getMarkers();
+        for(var i = 0; i < markers.length; i++) {
+          titles += markers[i].title + "<br/>\n";
+        }
+
+        infowindow.close();
+        infowindow.setContent(titles);
+        infowindow.open(map, info);
+
+      });
     });
 }
 
@@ -45,28 +74,20 @@ function loadScript() {
 }
 
 function createMarker(position, title) {
-  marker = new google.maps.Marker({
+  var marker = new google.maps.Marker({
     position: position,
-    map: map,
     title: title
   });
-  markers.push(marker)
+  google.maps.event.addListener(marker, 'click', function(mk) {
+    console.log(mk)
+    infowindow.close();
+    infowindow.setContent(marker.title);
+    infowindow.open(map, marker);
+  })
+  markers.push(marker);
 }
 
-function setAllMap(map) {
-  for (var i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
-}
 
-function clearMarkers() {
-  setAllMap(null);
-}
-
-function deleteMarkers() {
-  clearMarkers();
-  markers = [];
-}
 
 window.onload = loadScript;
 
