@@ -2,7 +2,8 @@ var map;
 var markers = [];
 var infowindow;
 var cluster;
-
+var drawingManager;
+var polygon;
 function initialize() {
   var mapOptions = {
     zoom: 14,
@@ -14,6 +15,35 @@ function initialize() {
   var mcOptions = {gridSize: 50, maxZoom: 15, zoomOnClick: false};
   cluster = new MarkerClusterer(map, null, mcOptions);
 
+
+  drawingManager = new google.maps.drawing.DrawingManager({
+//    drawingMode: google.maps.drawing.OverlayType.MARKER,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_LEFT,
+      drawingModes: [
+//        google.maps.drawing.OverlayType.MARKER,
+//        google.maps.drawing.OverlayType.CIRCLE,
+//        google.maps.drawing.OverlayType.POLYLINE,
+//        google.maps.drawing.OverlayType.RECTANGLE,
+        google.maps.drawing.OverlayType.POLYGON
+      ]
+    }
+  });
+  drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(poly) {
+//    console.log('finish');
+//    drawingManager.setMap(null);
+//    console.log(drawingManager);
+//    console.log(event);
+    polygon = poly
+    console.log(polygon);
+
+    drawingManager.setDrawingMode(null);
+    var arr=[];
+    alert(polygon.getPath().getArray())
+  });
 
   infowindow = new google.maps.InfoWindow({
     content: "Loading...",
@@ -32,10 +62,18 @@ function initialize() {
 }
 
 function loadMarkders() {
+  var polygon_arr = []
+  if (polygon != undefined) {
+    var positions = polygon.getPath().getArray();
+    for (var i = 0, length = positions.length; i < length; i++) {
+      polygon_arr = positions[i].toUrlValue
+    }
+  }
   $.ajax({
     url: "/api/v0/points",
     data: {
       bounds: map.getBounds().toUrlValue(),
+      polygon: polygon_arr,
       price_from: $('#price_from').val(),
       price_to: $('#price_to').val()
     }
@@ -74,7 +112,7 @@ function loadMarkders() {
 function loadScript() {
   var script = document.createElement("script");
   script.type = "text/javascript";
-  script.src = "http://maps.googleapis.com/maps/api/js?v=3.13&sensor=false&callback=initialize";
+  script.src = "http://maps.googleapis.com/maps/api/js?v=3.13&libraries=drawing&sensor=false&callback=initialize";
   document.body.appendChild(script);
 }
 
