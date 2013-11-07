@@ -21,8 +21,15 @@ end
 group :development do
   gem 'better_errors', '1.0.1'
   gem 'binding_of_caller', '0.7.2'
+  gem 'guard-rspec', '4.0.3', require: false
   gem 'spring', '0.9.0'
+  gem 'spring-commands-rspec', '1.0.0', require: false
   gem 'quiet_assets', '1.0.2'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '2.14.0'
+  gem 'guard-spring', '0.0.4'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

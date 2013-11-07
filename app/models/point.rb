@@ -7,7 +7,11 @@ class Point < ActiveRecord::Base
 
   def self.get_geom(points)
     points.map do |point|
-      '%f %f' % [point[1], point[0]]
+      '%.8f %.8f' % [point[1], point[0]]
     end.join(',')
+  end
+
+  def self.parse_point(str)
+    str.split(',').map(&:to_f).reject { |n| n == 0 }
   end
 end
