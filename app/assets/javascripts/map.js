@@ -41,8 +41,6 @@ function initialize() {
     console.log(polygon);
 
     drawingManager.setDrawingMode(null);
-    var arr=[];
-    alert(polygon.getPath().getArray())
   });
 
   infowindow = new google.maps.InfoWindow({
@@ -102,7 +100,7 @@ function loadMarkders() {
         }
 
         infowindow.close();
-        infowindow.setContent(titles);
+        infowindow.setContent('<div class="marker_content">' + titles + '</div>');
         infowindow.open(map, info);
 
       });
@@ -124,7 +122,7 @@ function createMarker(position, title) {
   google.maps.event.addListener(marker, 'click', function(mk) {
     console.log(mk)
     infowindow.close();
-    infowindow.setContent(marker.title);
+    infowindow.setContent('<div class="marker_content">' + marker.title + '</div>');
     infowindow.open(map, marker);
   })
   markers.push(marker);

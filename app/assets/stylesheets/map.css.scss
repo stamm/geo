@@ -24,3 +24,8 @@ body {
   padding: 5px;
   border: 1px solid #999;
 }
+
+.marker_content {
+  max-height: 250px;
+  overflow-y: auto;
+}
