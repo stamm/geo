@@ -13,24 +13,29 @@ class Api::V0::PointController < ApiController
       unless params[:price_to].blank?
         @points = @points.where('price <= ?', params[:price_to])
       end
-      bounds = params[:bounds].split(',').map(&:to_f).reject { |n| n == 0 }
 
-      rectangle = [
-          [bounds[0], bounds[1]],
-          [bounds[2], bounds[1]],
-          [bounds[2], bounds[3]],
-          [bounds[0], bounds[3]],
-          [bounds[0], bounds[1]]
-      ]
-
-      if bounds.size == 4
-        @points = @points.bound(rectangle)
+      unless params[:polygon].blank?
+        polygon = Point.string2points(params[:polygon])
+        polygon << polygon.first
+        @points = @points.bound(polygon)
       else
-        render_error({error: 'no boundes'}, 400)
+        rectangle = bound_to_rectangle(params[:bounds])
+        @points = @points.bound(rectangle)
       end
-
-      #render_json({data: json})
     end
+  end
+
+  private
+
+  def bound_to_rectangle(bounds_string)
+    bounds = Point.string2floats(bounds_string)
+    [
+      [bounds[0], bounds[1]],
+      [bounds[2], bounds[1]],
+      [bounds[2], bounds[3]],
+      [bounds[0], bounds[3]],
+      [bounds[0], bounds[1]]
+    ]
   end
 
 end

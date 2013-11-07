@@ -1,5 +1,4 @@
 var map;
-var markers = [];
 var infowindow;
 var cluster;
 var drawingManager;
@@ -20,7 +19,7 @@ function initialize() {
 //    drawingMode: google.maps.drawing.OverlayType.MARKER,
     drawingControl: true,
     drawingControlOptions: {
-      position: google.maps.ControlPosition.TOP_LEFT,
+      position: google.maps.ControlPosition.TOP_RIGHT,
       drawingModes: [
 //        google.maps.drawing.OverlayType.MARKER,
 //        google.maps.drawing.OverlayType.CIRCLE,
@@ -28,19 +27,25 @@ function initialize() {
 //        google.maps.drawing.OverlayType.RECTANGLE,
         google.maps.drawing.OverlayType.POLYGON
       ]
+    },
+    polygonOptions: {
+      editable: true
     }
   });
   drawingManager.setMap(map);
 
   google.maps.event.addListener(drawingManager, 'polygoncomplete', function(poly) {
-//    console.log('finish');
-//    drawingManager.setMap(null);
-//    console.log(drawingManager);
-//    console.log(event);
     polygon = poly
-    console.log(polygon);
 
-    drawingManager.setDrawingMode(null);
+    polygonTrigger()
+
+    google.maps.event.addListener(polygon.getPath(), 'set_at', function() {
+      polygonTrigger()
+    });
+
+    google.maps.event.addListener(polygon.getPath(), 'insert_at', function() {
+      polygonTrigger()
+    });
   });
 
   infowindow = new google.maps.InfoWindow({
@@ -71,7 +76,7 @@ function loadMarkders() {
     url: "/api/v0/points",
     data: {
       bounds: map.getBounds().toUrlValue(),
-      polygon: polygon_arr,
+      polygon: polygon_arr.join(','),
       price_from: $('#price_from').val(),
       price_to: $('#price_to').val()
     }
@@ -79,11 +84,13 @@ function loadMarkders() {
     .done(function( data ) {
 //      deleteMarkers();
       console.log(data.length)
+      var markers = [];
       for (var i=0, length = data.length; i < length; i++) {
-        createMarker(
+        marker = createMarker(
           new google.maps.LatLng(data[i]['latitude'], data[i]['longitude']),
           data[i]['name'] + " " + data[i]['price']
         );
+        markers.push(marker)
       }
 
       cluster.clearMarkers();
@@ -107,6 +114,11 @@ function loadMarkders() {
     });
 }
 
+function polygonTrigger() {
+  drawingManager.setDrawingMode(null);
+  loadMarkders();
+}
+
 function loadScript() {
   var script = document.createElement("script");
   script.type = "text/javascript";
@@ -125,15 +137,24 @@ function createMarker(position, title) {
     infowindow.setContent('<div class="marker_content">' + marker.title + '</div>');
     infowindow.open(map, marker);
   })
-  markers.push(marker);
+  return marker
 }
 
+function resetPolygon() {
+  polygon.setMap(null);
+  polygon = null;
+  loadMarkders();
+}
 
 
 window.onload = loadScript;
 
 
 $(function() {
-  $('#search_price').on('click', loadMarkders)
+  $('#search_form').on('click', function(e) {
+    e.preventDefault();
+    loadMarkders();
+  })
+  $('#reset_button').on('click', resetPolygon)
 });
 

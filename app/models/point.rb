@@ -1,17 +1,30 @@
 class Point < ActiveRecord::Base
 
-  def self.bound(points)
-    where(%{ST_Contains(ST_MakePolygon(ST_GeomFromText('LINESTRING(%s)')), ST_GeomFromText('POINT(' || points.longitude || ' ' || points.latitude || ')'))
-} % [get_geom(points)] )
-  end
+  
+  class << self
 
-  def self.get_geom(points)
-    points.map do |point|
-      '%.8f %.8f' % [point[1], point[0]]
-    end.join(',')
-  end
+    def bound(points)
+      where('ST_Contains(%s, %s)' % [sql_polygon(points), sql_geo_point] )
+    end
+  
+    def sql_polygon(points)
+      "ST_MakePolygon(ST_GeomFromText('LINESTRING(%s)'))" % [get_geom(points)]
+    end
+  
+    def sql_geo_point
+      "ST_GeomFromText('POINT(' || points.longitude || ' ' || points.latitude || ')')"
+    end
+  
+    def get_geom(points)
+      points.map { |p| '%.8f %.8f' % [p[1], p[0]] } .join(',')
+    end
+  
+    def string2floats(str)
+      str.split(',').map(&:to_f).reject { |n| n == 0 }
+    end
 
-  def self.parse_point(str)
-    str.split(',').map(&:to_f).reject { |n| n == 0 }
+    def string2points(str)
+      string2floats(str).each_slice(2).to_a
+    end
   end
 end

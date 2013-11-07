@@ -17,12 +17,15 @@ body {
 #panel {
   position: absolute;
   top: 5px;
-  left: 50%;
+  right: 200px;
   margin-left: -180px;
   z-index: 5;
   background-color: #fff;
   padding: 5px;
   border: 1px solid #999;
+}
+#search_form{
+  display: inline;
 }
 
 .marker_content {
