@@ -16,6 +16,9 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :default_env, { path: "/usr/local/rbenv/shims/:$PATH" }
 # set :keep_releases, 5
 
+set :rbenv_type, :system
+set :rbenv_ruby, '2.0.0-p247'
+
 namespace :deploy do
 
   desc 'Restart application'

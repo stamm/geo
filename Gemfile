@@ -30,7 +30,8 @@ group :development do
   gem 'vendorer', '0.1.14'
   gem 'capistrano', '3.0.1'
   gem 'capistrano-bundler', '1.0.0'
-  gem 'capistrano-rails', github: 'stamm/rails'
+  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
+  gem 'capistrano-rails', '1.0.0'
 end
 
 group :development, :test do

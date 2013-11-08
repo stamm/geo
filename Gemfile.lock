@@ -1,10 +1,9 @@
 GIT
-  remote: git://github.com/stamm/rails.git
-  revision: 4b9df282c959f795031a9663f8990925640fbaec
+  remote: git://github.com/capistrano/rbenv.git
+  revision: 362dbc02ef963c91425767e09b4848ff7be5132b
   specs:
-    capistrano-rails (1.0.0)
-      capistrano (>= 3.0.0)
-      capistrano-bundler (>= 1.0.0)
+    capistrano-rbenv (0.0.1)
+      capistrano
 
 GEM
   remote: https://rubygems.org/
@@ -47,6 +46,8 @@ GEM
       sshkit (>= 0.0.23)
     capistrano-bundler (1.0.0)
       capistrano (>= 3.0.0.pre)
+    capistrano-rails (1.0.0)
+      capistrano
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.0.9)
@@ -207,7 +208,8 @@ DEPENDENCIES
   binding_of_caller (= 0.7.2)
   capistrano (= 3.0.1)
   capistrano-bundler (= 1.0.0)
-  capistrano-rails!
+  capistrano-rails (= 1.0.0)
+  capistrano-rbenv!
   coffee-rails (= 4.0.1)
   figaro (= 0.7.0)
   guard-rspec (= 4.0.3)

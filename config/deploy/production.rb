@@ -1,4 +1,5 @@
 set :stage, :production
+set :rails_env, :production
 
 server 'geo.zagirov.name', user: 'deploy', roles: %w{web app db}
 
@@ -24,4 +25,4 @@ server 'geo.zagirov.name', user: 'deploy', roles: %w{web app db}
 #   }
 # setting per server overrides global ssh_options
 
-# fetch(:default_env).merge!(rails_env: :production)
+#fetch(:default_env).merge!(rails_env: :production)
