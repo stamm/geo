@@ -26,6 +26,10 @@ group :development do
   gem 'spring-commands-rspec', '1.0.0', require: false
   gem 'quiet_assets', '1.0.2'
   gem 'vendorer', '0.1.14'
+  gem 'capistrano', '3.0.1'
+  gem 'capistrano-bundler', '1.0.0'
+  gem 'capistrano-rails', github: 'stamm/rails'
+
 end
 
 group :development, :test do

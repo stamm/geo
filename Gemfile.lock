@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/stamm/rails.git
+  revision: a8ab3c4a717f28cbb40ec7e60d4e4718755b2ccc
+  specs:
+    capistrano-rails (1.0.0)
+      capistrano (>= 3.0.0)
+      capistrano-bundler (>= 1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -33,6 +41,12 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.1.4)
+    capistrano (3.0.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 0.0.23)
+    capistrano-bundler (1.0.0)
+      capistrano (>= 3.0.0.pre)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.0.9)
@@ -86,6 +100,9 @@ GEM
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     pg (0.17.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
@@ -152,6 +169,12 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sshkit (1.1.0)
+      net-scp
+      net-ssh
+      term-ansicolor
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
@@ -160,6 +183,7 @@ GEM
       atomic
     tilt (1.4.1)
     timers (1.1.0)
+    tins (0.12.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -175,6 +199,9 @@ PLATFORMS
 DEPENDENCIES
   better_errors (= 1.0.1)
   binding_of_caller (= 0.7.2)
+  capistrano (= 3.0.1)
+  capistrano-bundler (= 1.0.0)
+  capistrano-rails!
   coffee-rails (= 4.0.1)
   figaro (= 0.7.0)
   guard-rspec (= 4.0.3)
@@ -189,6 +216,6 @@ DEPENDENCIES
   sdoc
   spring (= 0.9.0)
   spring-commands-rspec (= 1.0.0)
-  therubyracer
+  therubyracer (= 0.12.0)
   uglifier (= 2.3.0)
   vendorer (= 0.1.14)
