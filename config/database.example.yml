@@ -1,6 +1,6 @@
 defaults: &defaults
   adapter: postgresql
-  username: stamm
+  username:
   password:
   pool: 5
   timeout: 5000
