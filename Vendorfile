@@ -1,0 +1,2 @@
+file 'vendor/assets/javascripts/markerclusterer/markerclusterer.js', 'http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0.2/src/markerclusterer.js'
+file 'vendor/assets/javascripts/markerclusterer/markerclusterer.min.js', 'http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclusterer/1.0.2/src/markerclusterer_compiled.js'

@@ -25,6 +25,7 @@ group :development do
   gem 'spring', '0.9.0'
   gem 'spring-commands-rspec', '1.0.0', require: false
   gem 'quiet_assets', '1.0.2'
+  gem 'vendorer', '0.1.14'
 end
 
 group :development, :test do
