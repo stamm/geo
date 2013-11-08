@@ -14,13 +14,13 @@ class Api::V0::PointController < ApiController
         @points = @points.where('price <= ?', params[:price_to])
       end
 
-      unless params[:polygon].blank?
+      if  params[:polygon].blank?
+        rectangle = bound_to_rectangle(params[:bounds])
+        @points = @points.bound(rectangle)
+      else
         polygon = Point.string2points(params[:polygon])
         polygon << polygon.first
         @points = @points.bound(polygon)
-      else
-        rectangle = bound_to_rectangle(params[:bounds])
-        @points = @points.bound(rectangle)
       end
     end
   end
