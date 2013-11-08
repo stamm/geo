@@ -59,7 +59,7 @@ class MapsLoader
         position: google.maps.ControlPosition.TOP_RIGHT
         drawingModes: [google.maps.drawing.OverlayType.POLYGON]
       polygonOptions:
-        editable: true
+        editable: false
       map: @map
 
     google.maps.event.addListener @drawingManager, 'polygoncomplete', (object) =>
