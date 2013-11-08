@@ -5,6 +5,7 @@ class Point < ActiveRecord::Base
   scope :bound, -> (points) {
       where('ST_Contains(%s, %s)' % [sql_polygon(points), sql_geo_point] )
   }
+
   scope :filter_by_price, -> (from, to) {
     obj = self
     obj = obj.where('price >= ?', from) unless from.blank?
