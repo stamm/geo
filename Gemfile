@@ -11,6 +11,8 @@ gem 'jquery-rails'
 gem 'jbuilder', '1.5.2'
 
 
+gem 'unicorn', '4.7.0'
+
 gem 'figaro', '0.7.0'
 
 group :doc do
