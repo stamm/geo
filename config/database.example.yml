@@ -1,0 +1,19 @@
+defaults: &defaults
+  adapter: postgresql
+  username: stamm
+  password:
+  pool: 5
+  timeout: 5000
+  host: localhost
+
+development:
+  <<: *defaults
+  database: geo_development
+
+test: &test
+  <<: *defaults
+  database: geo_test
+
+production:
+  <<: *defaults
+  database: geo_production
