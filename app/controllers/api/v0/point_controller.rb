@@ -7,14 +7,9 @@ class Api::V0::PointController < ApiController
     else
       @points = Point
 
-      unless params[:price_from].blank?
-        @points = @points.where('price >= ?', params[:price_from])
-      end
-      unless params[:price_to].blank?
-        @points = @points.where('price <= ?', params[:price_to])
-      end
+      @points = @points.filter_by_price(params[:price_from], params[:price_to])
 
-      if  params[:polygon].blank?
+      if params[:polygon].blank?
         rectangle = bound_to_rectangle(params[:bounds])
         @points = @points.bound(rectangle)
       else
