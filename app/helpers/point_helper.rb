@@ -10,4 +10,15 @@ module PointHelper
   def string2points(str)
     string2floats(str).each_slice(2).to_a
   end
+
+  def bound_to_rectangle(bounds_string)
+    bounds = string2floats(bounds_string)
+    [
+        [bounds[0], bounds[1]],
+        [bounds[2], bounds[1]],
+        [bounds[2], bounds[3]],
+        [bounds[0], bounds[3]],
+        [bounds[0], bounds[1]]
+    ]
+  end
 end
