@@ -14,19 +14,16 @@
 
 ## Настройка приложения
 
-```lang=bash
+```bash
 cp config/database.example.yml config/database.yml
 # Исправить настройки подключения
 bundle install
-rake db:create
-rake db:migrate
-# Заполнить тестовыми данными Москву и Питер
-rake db:sample_data
+rake db:create db:migrate db:sample_data
 ```
 
 ## Тесты
 
-```lang=bash
+```bash
 rake db:create RAILS_ENV=test
 rake db:migrate RAILS_ENV=test
 bundle exec guard
