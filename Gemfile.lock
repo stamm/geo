@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/stamm/rails.git
-  revision: a8ab3c4a717f28cbb40ec7e60d4e4718755b2ccc
+  revision: 4b9df282c959f795031a9663f8990925640fbaec
   specs:
     capistrano-rails (1.0.0)
       capistrano (>= 3.0.0)
@@ -58,7 +58,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     debug_inspector (0.0.2)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
     ffi (1.9.3)

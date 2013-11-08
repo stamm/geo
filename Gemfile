@@ -29,7 +29,6 @@ group :development do
   gem 'capistrano', '3.0.1'
   gem 'capistrano-bundler', '1.0.0'
   gem 'capistrano-rails', github: 'stamm/rails'
-
 end
 
 group :development, :test do
