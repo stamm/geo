@@ -22,7 +22,7 @@ describe Point do
 
     describe '#string2points' do
       it { expect(subject.string2points('1,2')).to eq([[1,2]])}
-      it { expect(subject.string2floats('1,2,3,4')).to eq([[1,2],[3,4]])}
+      it { expect(subject.string2points('1,2,3,4')).to eq([[1,2],[3,4]])}
     end
 
     describe '#sql_polygon' do
