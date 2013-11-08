@@ -33,8 +33,7 @@ group :development, :test do
   gem 'guard-spring', '0.0.4'
 end
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', '0.12.0', platforms: :ruby
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
